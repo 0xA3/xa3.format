@@ -1,0 +1,5 @@
+-lib buddy
+-cp src
+-D analyzer-optimize
+-main test.TestMain
+--interp
