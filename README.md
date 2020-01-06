@@ -7,7 +7,7 @@ NumberFormat.number( v:Float, decimals = 0, decimalSeparator = ".", thousandsSep
 
 NumberFormat.fixed( v:Float, decimals = 0, decimalSeparator = ".", minWholeNumbers = 1 ):String
 
-NumberFormat.percent( v:Float, decimalSeparator = ".", thousandsSeparator = "." ):String
+NumberFormat.percent( v:Float, decimalSeparator = ".", thousandsSeparator = "," ):String
 
 NumberFormat.getDecimalDigits( v:Float ):Int
 
@@ -15,12 +15,6 @@ NumberFormat.round( v:Float, decimals:Int ):Float
 ```
 
 Check out the tests for examples.
-
-### Installation
-
-```
-haxelib install xa3.format  
-```
 
 ## Issues
 

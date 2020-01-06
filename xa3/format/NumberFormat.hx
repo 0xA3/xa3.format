@@ -43,7 +43,7 @@ class NumberFormat {
 		return left + right;
 	}
 
-	public static function percent( v:Float, decimalSeparator = ".", thousandsSeparator = "." ):String {
+	public static function percent( v:Float, decimalSeparator = ".", thousandsSeparator = "," ):String {
 		
 		final p = v * 100;
 		return number( p, getDecimalDigits( p ), decimalSeparator, thousandsSeparator ) + "%";
