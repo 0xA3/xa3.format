@@ -3,7 +3,7 @@
 	"license": "MIT",
 	"url" : "https://github.com/0xA3/xa3.format",
 	"tags": ["format", "localization", "cross", "xa3"],
-	"description": "Number and date formatting library",
+	"description": "Number formatting library",
 	"version": "0.1.0",
 	"releasenote": "Initial release",
 	"contributors": ["0xA3"],
