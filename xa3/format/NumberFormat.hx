@@ -2,6 +2,10 @@ package xa3.format;
 
 class NumberFormat {
 
+	public static function numberEmptyIfZero( v:Float, decimals = 0, decimalSeparator = ".", thousandsSeparator = "," ):String {
+		return v == 0 ? "" : number( v, decimals, decimalSeparator, thousandsSeparator );
+	}
+
 	public static function number( v:Float, decimals = 0, decimalSeparator = ".", thousandsSeparator = ",", minWholeNumbers = 1 ):String {
 		
 		if( v == 0 && minWholeNumbers == 0 ) return "";
