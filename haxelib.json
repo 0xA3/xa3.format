@@ -5,7 +5,7 @@
 	"tags": ["format", "localization", "cross", "xa3"],
 	"description": "Number formatting library",
 	"version": "0.2.0",
-	"releasenote": "Initial release",
+	"releasenote": "added numberEmptyIfZero",
 	"contributors": ["0xA3"],
 	"dependencies": {}
 }
