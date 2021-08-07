@@ -13,6 +13,7 @@ class TestNumberFormat extends buddy.BuddySuite {
 			it( "Test -27.66", { NumberFormat.round( -27.66, 2 ).should.be( -27.66 ); });
 			it( "Test 1.6614729592134835e-011 ", { NumberFormat.round( 1.6614729592134835e-011, 0 ).should.be( 0 ); });
 			it( "Test 2.47", { NumberFormat.round( 2.47, 2 ).should.be( 2.47 ); });
+			it( "Test -2.47", { NumberFormat.round( -2.47, 2 ).should.be( -2.47 ); });
 		});
 
 		describe( "Test Fixed", {
