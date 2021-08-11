@@ -71,13 +71,14 @@ class NumberFormat {
 		} else { // do string rounding that also works with very big numbers and many decimals
 			
 			final vParts = vString.split( "." );
-			final intString = vParts[0];
+			final int = Std.parseFloat( vParts[0] );
 			final decimalString = vParts.length == 2 ? vParts[1] : "";
 			final decimal = Std.parseFloat( '0.$decimalString' );
 			final roundedDecimals = Math.round( decimal * pow ) / pow;
-			
-			// return v < 0 ? Std.parseFloat( intString ) - roundedDecimals : Std.parseFloat( intString + "." + Std.string( roundedDecimals ).substr( 2 ));
-			return Std.parseFloat( intString + "." + Std.string( roundedDecimals ).substr( 2 ));
+			final roundedInt = Std.int( roundedDecimals );
+
+			final resultInt = v < 0 ? int - roundedInt : int + roundedInt;
+			return Std.parseFloat( Std.string( resultInt ) + "." + Std.string( roundedDecimals ).substr( 2 ));
 		}
 
 	}
