@@ -1,5 +1,8 @@
 package xa3.format;
 
+import Std.parseFloat;
+import Std.string;
+
 class NumberFormat {
 
 	public static function numberEmptyIfZero( v:Float, decimals = 0, decimalSeparator = ".", thousandsSeparator = "," ):String {
@@ -11,9 +14,8 @@ class NumberFormat {
 		if( v == 0 && minWholeNumbers == 0 ) return "";
 
 		final vRounded = round( v, decimals );
-		final vString = Std.string( vRounded );
+		final vString = string( vRounded );
 		final decimalString = vString.indexOf( "." ) == -1 ? "" : vString.split( "." )[1];
-		// final decimal = Std.parseFloat( '0.$decimalString' );
 		final filledDecimal = fillRight( decimalString, decimals );
 		
 		final sign = vRounded < 0 ? "-" : "";
@@ -35,7 +37,7 @@ class NumberFormat {
 		if( v == 0 && minWholeNumbers == 0 ) return "";
 
 		final vRounded = round( v, decimals );
-		final vString = Std.string( vRounded );
+		final vString = string( vRounded );
 		final wholeNumbers = vString.split( "." )[0];
 		final left = fillLeft( wholeNumbers, minWholeNumbers );
 
@@ -54,7 +56,7 @@ class NumberFormat {
 	}
 	
 	public static function getDecimalDigits( v:Float ):Int {
-		final vString = Std.string( v );
+		final vString = string( v );
 		if( vString.indexOf( "." ) == -1 ) return 0;
 		return vString.split( "." )[1].length;
 	}
@@ -62,23 +64,36 @@ class NumberFormat {
 	public static function round( v:Float, decimals:Int ):Float {
 
 		final pow = Math.pow( 10, decimals );
-		final vString = Std.string( v );
+		final stringV = string( v );
 		
-		if( vString.indexOf( "e" ) != -1 ) { // do standard rounding
+		if( stringV.indexOf( "e" ) != -1 ) { // do standard rounding
 			
 			return Math.round( v * pow ) / pow;
 
 		} else { // do string rounding that also works with very big numbers and many decimals
 			
-			final vParts = vString.split( "." );
-			final int = Std.parseFloat( vParts[0] );
-			final decimalString = vParts.length == 2 ? vParts[1] : "";
-			final decimal = Std.parseFloat( '0.$decimalString' );
-			final roundedDecimals = Math.round( decimal * pow ) / pow;
-			final roundedInt = Std.int( roundedDecimals );
+			final stringVParts = stringV.split( "." );
+			final sInt = stringVParts[0];
+			final sDec = stringVParts.length == 2 ? stringVParts[1] : "";
+			if( sDec.length <= decimals ) return v;
+			
+			final v = Std.parseInt( sDec.charAt( decimals ));
+			if( v < 5 ) return parseFloat( '${sInt}.${sDec.substr( 0, decimals )}' );
 
-			final resultInt = v < 0 ? int - roundedInt : int + roundedInt;
-			return Std.parseFloat( Std.string( resultInt ) + "." + Std.string( roundedDecimals ).substr( 2 ));
+			var sUp = "0";
+			for( i in 1...sDec.length ) {
+				final v = Std.parseInt( sDec.charAt( decimals - i ));
+				final vUp = v + 1;
+				if( vUp < 10 ) {
+					sUp = string( vUp ) + sUp;
+					return parseFloat( '${sInt}.${sDec.substring( 0 , decimals - i )}$sUp' );
+				} else {
+					sUp += "0";
+				}
+			}
+			final int = parseFloat( sInt );
+			final intUp = int < 0 ? int -1 : int + 1;
+			return intUp;
 		}
 
 	}
