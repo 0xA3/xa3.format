@@ -8,6 +8,10 @@ class TestNumberFormat extends buddy.BuddySuite {
 	public function new() {
 		
 		describe( "Test rounding", {
+			it( "Test 1.5", { NumberFormat.round( 1.5, 0 ).should.be( 2 ); });
+			it( "Test 1.55", { NumberFormat.round( 1.55, 1 ).should.be( 1.6 ); });
+			it( "Test 1.995", { NumberFormat.round( 1.995, 2 ).should.be( 2 ); });
+			it( "Test 1.9956", { NumberFormat.round( 1.9956, 2 ).should.be( 2 ); });
 			it( "Test 27.66", { NumberFormat.round( 27.66, 2 ).should.be( 27.66 ); });
 			it( "Test 27.666", { NumberFormat.round( 27.666, 2 ).should.be( 27.67 ); });
 			it( "Test -27.666", { NumberFormat.round( -27.666, 2 ).should.be( -27.67 ); });
