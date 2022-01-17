@@ -4,8 +4,8 @@
 	"url" : "https://github.com/0xA3/xa3.format",
 	"tags": ["format", "localization", "cross", "xa3"],
 	"description": "Number formatting library",
-	"version": "0.2.3",
-	"releasenote": "correct rounding errors with 10.00001044",
+	"version": "0.2.5",
+	"releasenote": "add typedef for separators",
 	"contributors": ["0xA3"],
 	"dependencies": {}
 }

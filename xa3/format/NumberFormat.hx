@@ -3,15 +3,29 @@ package xa3.format;
 import Std.parseFloat;
 import Std.string;
 
+typedef Separation = {
+	final decimal:String;
+	final thousands:String;
+}
+
 class NumberFormat {
 
-	public static function numberEmptyIfZero( v:Float, decimals = 0, decimalSeparator = ".", thousandsSeparator = "," ):String {
-		return v == 0 ? "" : number( v, decimals, decimalSeparator, thousandsSeparator );
+	public static final dotComma:Separation = { decimal: ".", thousands: "," };
+	public static final commaDot:Separation = { decimal: ",", thousands: "." };
+
+	public static final de = commaDot;
+	public static final en = dotComma;
+	public static final fr:Separation = { decimal: ",", thousands: " " }
+
+	public static function numberEmptyIfZero( v:Float, decimals = 0, ?separation:Separation ):String {
+		if( separation == null ) separation = en;
+		return v == 0 ? "" : number( v, decimals, separation );
 	}
 
-	public static function number( v:Float, decimals = 0, decimalSeparator = ".", thousandsSeparator = ",", minWholeNumbers = 1 ):String {
-		
+	public static function number( v:Float, decimals = 0, ?separation:Separation, ?minWholeNumbers = 1 ):String {
+
 		if( v == 0 && minWholeNumbers == 0 ) return "";
+		if( separation == null ) separation = en;
 
 		final vRounded = round( v, decimals );
 		final vString = string( vRounded );
@@ -21,20 +35,21 @@ class NumberFormat {
 		final sign = vRounded < 0 ? "-" : "";
 		final wholeNumbers = vString.split( "." )[0].substring( vRounded < 0 ? 1 : 0 );
 		final left = fillLeft( wholeNumbers, minWholeNumbers );
-		final right = decimals > 0 ? decimalSeparator + filledDecimal : "";
+		final right = decimals > 0 ? separation.decimal + filledDecimal : "";
 
 		var formattedLeft = left.substr( Std.int( Math.max( 0, left.length - 3 )));
 		final separators = Std.int(( left.length - 1 ) / 3 );
 		for( i in 0...separators ) {
-			formattedLeft = left.substring( left.length - ( i + 2 ) * 3, left.length -( i + 1 ) * 3 ) + thousandsSeparator + formattedLeft;
+			formattedLeft = left.substring( left.length - ( i + 2 ) * 3, left.length -( i + 1 ) * 3 ) + separation.thousands + formattedLeft;
 		}
 
 		return sign + formattedLeft + right;
 	}
 
-	public static function fixed( v:Float, decimals = 0, decimalSeparator = ".", minWholeNumbers = 1 ):String {
+	public static function fixed( v:Float, decimals = 0, ?separation:Separation, ?minWholeNumbers = 1 ):String {
 		
 		if( v == 0 && minWholeNumbers == 0 ) return "";
+		if( separation == null ) separation = en;
 
 		final vRounded = round( v, decimals );
 		final vString = string( vRounded );
@@ -44,15 +59,15 @@ class NumberFormat {
 		final decimalString = vString.indexOf( "." ) == -1 ? "" : vString.split( "." )[1];
 		final filledDecimal = fillRight( decimalString, decimals );
 
-		final right = decimals > 0 ? decimalSeparator + filledDecimal : "";
+		final right = decimals > 0 ? separation.decimal + filledDecimal : "";
 
 		return left + right;
 	}
 
-	public static function percent( v:Float, decimalSeparator = ".", thousandsSeparator = "," ):String {
-		
+	public static function percent( v:Float, ?separation:Separation ):String {
+		if( separation == null ) separation = en;
 		final p = v * 100;
-		return number( p, getDecimalDigits( p ), decimalSeparator, thousandsSeparator ) + "%";
+		return number( p, getDecimalDigits( p ), separation ) + "%";
 	}
 	
 	public static function getDecimalDigits( v:Float ):Int {
