@@ -3,11 +3,11 @@
 ### Methods
 
 ```
-NumberFormat.number( v:Float, decimals = 0, decimalSeparator = ".", thousandsSeparator = ",", minWholeNumbers = 1 ):String
+NumberFormat.number( v:Float, decimals = 0, NumberFormat.en, minWholeNumbers = 1 ):String
 
-NumberFormat.fixed( v:Float, decimals = 0, decimalSeparator = ".", minWholeNumbers = 1 ):String
+NumberFormat.fixed( v:Float, decimals = 0, NumberFormat.en, minWholeNumbers = 1 ):String
 
-NumberFormat.percent( v:Float, decimalSeparator = ".", thousandsSeparator = "," ):String
+NumberFormat.percent( v:Float, NumberFormat.en ):String
 
 NumberFormat.getDecimalDigits( v:Float ):Int
 

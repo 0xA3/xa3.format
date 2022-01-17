@@ -17,11 +17,16 @@ class NumberFormat {
 	public static final en = dotComma;
 	public static final fr:Separation = { decimal: ",", thousands: " " }
 
+	/**
+	 * Returns an empty string if the number is 0. If it's not empty it formats the number with the 'number method
+	 */
 	public static function numberEmptyIfZero( v:Float, decimals = 0, ?separation:Separation ):String {
-		if( separation == null ) separation = en;
 		return v == 0 ? "" : number( v, decimals, separation );
 	}
 
+	/**
+	 * Formats the number with decimal and thousands separator. Returns a String
+	 */
 	public static function number( v:Float, decimals = 0, ?separation:Separation, ?minWholeNumbers = 1 ):String {
 
 		if( v == 0 && minWholeNumbers == 0 ) return "";
@@ -46,6 +51,9 @@ class NumberFormat {
 		return sign + formattedLeft + right;
 	}
 
+	/**
+	 * Formats the number only with decimal separator. Returns a String
+	 */
 	public static function fixed( v:Float, decimals = 0, ?separation:Separation, ?minWholeNumbers = 1 ):String {
 		
 		if( v == 0 && minWholeNumbers == 0 ) return "";
@@ -64,7 +72,10 @@ class NumberFormat {
 		return left + right;
 	}
 
-	public static function percent( v:Float, ?separation:Separation ):String {
+	/**
+	 * Formats the number to percent value. ( 1 == 100% )
+	 */
+	 public static function percent( v:Float, ?separation:Separation ):String {
 		if( separation == null ) separation = en;
 		final p = v * 100;
 		return number( p, getDecimalDigits( p ), separation ) + "%";
@@ -76,7 +87,10 @@ class NumberFormat {
 		return vString.split( "." )[1].length;
 	}
 	
-	public static function round( v:Float, decimals:Int ):Float {
+	/**
+	 * Rounds the number
+	 */
+	 public static function round( v:Float, decimals = 0 ):Float {
 
 		if( decimals == 0 ) return Math.round( v );
 

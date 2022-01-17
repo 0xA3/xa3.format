@@ -26,7 +26,7 @@ class TestNumberFormatCustom extends buddy.BuddySuite {
 			
 		});
 		
-		describe( "Test number Custom", {
+		describe( "Test number with separator constant", {
 
 			it( "Test 0", {	NumberFormat.number( 0 ).should.be( "0" ); });
 			it( "Test 0,00", { NumberFormat.number( 0, 2, NumberFormat.de ).should.be( "0,00" ); });
@@ -46,8 +46,11 @@ class TestNumberFormatCustom extends buddy.BuddySuite {
 			it( "Test -127,7", { NumberFormat.number( -127.66, 1, NumberFormat.de ).should.be( "-127,7" ); });
 			it( "Test -1.000.000", { NumberFormat.number( -1000000, 0, NumberFormat.de ).should.be( "-1.000.000" ); });
 			it( "Test -12.345,679", { NumberFormat.number( -12345.679, 3, NumberFormat.de ).should.be( "-12.345,679" ); });
-
 		});
-		
+
+		describe( "Test number with custom separator", {
+
+			it( "Test -1.000.000", { NumberFormat.number( -1000000.50, 2, { decimal: ",", thousands: "." }).should.be( "-1.000.000,50" ); });
+		});
 	}
 }
